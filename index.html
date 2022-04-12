@@ -33,40 +33,48 @@
             </div>
         </div>
 
-        <div class="col-12  col-md-9 col-lg-9 mx-auto">
+        <div class="col-12 col-md-9 col-lg-9 mx-auto mt-2">
             <div class="card border border-dark mb-3">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <div class="card-body">
-                    <h2 class="card-title" id="city-name">City Namy</h2>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="card-body" id="search-result-section">
+                    <h2 class="card-title" id="city-name"></h2>
                 </div>
             </div>
 
             <div class="flex-row">
                 <div class="col-12">
-                    <h3>5 Day Forecast:</h3>
+                    <h3>5-Day Forecast:</h3>
                 </div>
-                <div class="bg-dark col-2">
-                    <h4 class="text-white">Date 1</h4>
-                    <i class="bi bi-sun"></i>
-                </div>
-                <div class="bg-dark col-2">
-                    <h4 class="text-white">Date 1</h4>
-                    <i class="bi bi-sun"></i>
-                </div>
-                <div class="bg-dark mx-auto">
-                    <h4 class="text-white">Date 1</h4>
-                    <i class="bi bi-sun"></i>
-                </div>
-                <div class="bg-dark mx-auto">
-                    <h4 class="text-white">Date 1</h4>
-                    <i class="bi bi-sun"></i>
-                </div>
-                <div class="bg-dark mx-auto">
-                    <h4 class="text-white">Date 1</h4>
-                    <i class="bi bi-sun"></i>
+                <div class="col-12">
+                    <div class="row" id="forecast">
+                        <div class="col-12 col-md-2 bg-dark ml-2">
+                            <p>blah</p>
+                        </div>
+                        <div class="col-12 col-md-2 bg-danger ml-2">
+                            <p>blah</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="bg-dark col-2" id="day-1">
+                        <h4 class="text-white">Date 1</h4>
+                        <i class="bi bi-sun"></i>
+                    </div>
+                    <div class="bg-dark col-2" id="day-2">
+                        <h4 class="text-white">Date 1</h4>
+                        <i class="bi bi-sun"></i>
+                    </div>
+                    <div class="bg-dark col-2" id="day-3">
+                        <h4 class="text-white">Date 1</h4>
+                        <i class="bi bi-sun"></i>
+                    </div>
+                    <div class="bg-dark col-2" id="day-4">
+                        <h4 class="text-white">Date 1</h4>
+                        <i class="bi bi-sun"></i>
+                    </div>
+                    <div class="bg-dark col-2" id="day-5">
+                        <h4 class="text-white">Date 1</h4>
+                        <i class="bi bi-sun"></i>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -74,6 +82,7 @@
     <footer>
 
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 
