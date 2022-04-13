@@ -4,6 +4,7 @@ var cityNameEl = document.querySelector("#city-name");
 var searchResultEl = document.querySelector("#search-result-section");
 var searchResultCard = document.querySelector("#search-result-card");
 var forecastEl = document.querySelector("#forecast");
+var searchHistoryEl = document.querySelector("#search-history");
 
 var icons = {
     sun: `<i class="bi bi-sun-fill"></i>`,
@@ -13,14 +14,47 @@ var icons = {
     thunderStorm: `<i class="bi bi-cloud-lightning-rain-fill"></i>`,
 }
 
+var searchHistory = [];
+
 var apiKey = "b7ee02fafe439dca3aed3423ddbcfb21";
 
 var formSubmitHandler = event => {
     event.preventDefault();
     var searchCityName = searchCityEl.value.trim();
+    searchCityEl.value = "";
+    // updateSearchHistory(searchCityName);
     weatherData = getCityData(searchCityName);
     // var coordinates = await getCityCoordinates(searchCityName);
     // console.log(coordinates);
+}
+
+var saveHistory = function () {
+    var saveHistory = JSON.stringify(searchHistory);
+    localStorage.setItem("searchHistory", saveHistory);
+}
+
+var loadHistory = function () {
+    searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+    if (!searchHistory) {
+        searchHistory = [];
+    }
+    searchHistory.forEach(term => updateSearchHistory(term));
+}
+
+var historyClickHandler = event => {
+    event.preventDefault();
+    // console.log(event.target);
+    //Move search term to top of list
+    // searchHistory.unshift()
+    getCityData(event.target.getAttribute("data-name"));
+}
+
+var updateSearchHistory = searchTerm => {
+    var searchTermEl = document.createElement("button");
+    searchTermEl.innerText = searchTerm;
+    searchTermEl.classList = "btn btn-secondary search-history-btn mt-2";
+    searchTermEl.setAttribute("data-name", searchTerm);
+    searchHistoryEl.insertBefore(searchTermEl, searchHistoryEl.firstChild);
 }
 
 var getCityData = cityName => {
@@ -28,6 +62,13 @@ var getCityData = cityName => {
     // Getting coordinates
     fetch(apiUrl).then(response => {
         if (response.ok) {
+            // Only wanna include something in the history if it's a valid search term
+            if (!searchHistory.includes(cityName)) {
+                searchHistory.push(cityName);
+                saveHistory();
+                updateSearchHistory(cityName);
+                console.log(searchHistory);
+            }
             response.json().then(data => {
                 var cityCoordinates = { lat: data[0].lat, lon: data[0].lon };
                 // Get city weather info with coordinates
@@ -237,5 +278,8 @@ var loadForecast = forecastData => {
 // }
 
 // getCoordinates("Berkeley").then(coordinates => console.log(coordinates));
+loadHistory();
 
 searchEl.addEventListener("submit", formSubmitHandler);
+
+searchHistoryEl.addEventListener("click", historyClickHandler);
