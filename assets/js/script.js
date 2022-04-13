@@ -22,16 +22,10 @@ var formSubmitHandler = event => {
     event.preventDefault();
     var searchCityName = searchCityEl.value.trim();
     searchCityEl.value = "";
-    // updateSearchHistory(searchCityName);
     weatherData = getCityData(searchCityName);
-    // var coordinates = await getCityCoordinates(searchCityName);
-    // console.log(coordinates);
 }
 
-var saveHistory = function () {
-    var saveHistory = JSON.stringify(searchHistory);
-    localStorage.setItem("searchHistory", saveHistory);
-}
+var saveHistory = () => localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 
 var loadHistory = function () {
     searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
@@ -43,9 +37,6 @@ var loadHistory = function () {
 
 var historyClickHandler = event => {
     event.preventDefault();
-    // console.log(event.target);
-    //Move search term to top of list
-    // searchHistory.unshift()
     getCityData(event.target.getAttribute("data-name"));
 }
 
@@ -61,18 +52,25 @@ var getCityData = cityName => {
     var apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`;
     // Getting coordinates
     fetch(apiUrl).then(response => {
+        console.log(response);
         if (response.ok) {
             // Only wanna include something in the history if it's a valid search term
-            if (!searchHistory.includes(cityName)) {
-                searchHistory.push(cityName);
-                saveHistory();
-                updateSearchHistory(cityName);
-                console.log(searchHistory);
-            }
             response.json().then(data => {
-                var cityCoordinates = { lat: data[0].lat, lon: data[0].lon };
-                // Get city weather info with coordinates
-                getCityWeatherData(cityCoordinates, cityName)
+                if (data.length === 0) {
+                    searchResultEl.innerHTML = "";
+                    forecastEl.innerHTML = "";
+                    alert(`No results for ${cityName}`);
+                } else {
+                    if (!searchHistory.includes(cityName)) {
+                        searchHistory.push(cityName);
+                        saveHistory();
+                        updateSearchHistory(cityName);
+                        console.log(searchHistory);
+                    }
+                    var cityCoordinates = { lat: data[0].lat, lon: data[0].lon };
+                    // Get city weather info with coordinates
+                    getCityWeatherData(cityCoordinates, cityName)
+                }
             });
         } else {
             alert("Bad coordinate request!");
@@ -176,7 +174,6 @@ var getCityImageUrl = cityName => {
             return "";
         }
     })
-    //make a call to this api, if no images, move on.
 }
 
 var loadSearchResult = cityWeatherData => {
@@ -238,46 +235,6 @@ var loadForecast = forecastData => {
     });
 }
 
-// var getCityCoordinates = cityName => {
-//     var apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`;
-//     fetch(apiUrl).then(function (response) {
-//         if (response.ok) {
-//             response.json().then(function (data) {
-//                 var cityCoordinates = { lat: data[0].lat, lon: data[0].lon };
-//                 console.log(cityCoordinates);
-//                 var apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${cityCoordinates.lat}&lon=${cityCoordinates.lon}&units=imperial&appid=${apiKey}`;
-
-//                 fetch(apiUrl).then(function (response) {
-//                     console.log(response);
-//                     if (response.ok) {
-//                         response.json().then(function (data) {
-//                             console.log(data);
-//                         });
-//                     } else {
-//                         alert("bad request!");
-//                     }
-//                 });
-//             });
-//         } else {
-//             alert("Bad coordinate request!");
-//         }
-//     });
-// }
-
-// async function getCoordinates(cityName) {
-//     var apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`;
-//     const response = await fetch(apiUrl);
-//     console.log(response);
-//     const data = await response.json();
-//     var coordinates = {
-//         lat: data[0].lat,
-//         lon: data[0].lon,
-//     }
-//     console.log(coordinates);
-//     return coordinates;
-// }
-
-// getCoordinates("Berkeley").then(coordinates => console.log(coordinates));
 loadHistory();
 
 searchEl.addEventListener("submit", formSubmitHandler);
