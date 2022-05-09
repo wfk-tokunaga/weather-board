@@ -21,60 +21,29 @@
     <main class="row mx-auto mt-3">
         <div class="col-12 col-md-3 col-lg-3 mx-auto">
             <form id="search-form">
-
                 <h2>Search for a City: </h2>
-                <input type="text" class="form-control-lg mx-auto mb-2" id="city-search" placeholder="Berkeley"
-                    style="width: 100%;">
-                <button id="search-btn" type="submit" class="btn btn-large btn-primary" style="width: 100%;">Search
-                </button>
+                <input type="text" class="form-control-lg mx-auto mb-2" id="city-search" placeholder="Berkeley">
+                <button id="search-btn" type="submit" class="btn btn-large btn-primary">Search</button>
             </form>
-            <div id="search-history">
-
-            </div>
+            <div id="search-history"></div>
         </div>
 
         <div class="col-12 col-md-9 col-lg-9 mx-auto mt-2">
-            <div class="card border border-dark mb-3">
-                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card border border-dark mb-3" id="search-result-card">
+                <!-- These will be generated dynamically -->
+                <!-- <img class="card-img-top"
+                    src=" https://d13k13wj6adfdf.cloudfront.net/urban_areas/bangkok_web-24b795d6ac.jpg"
+                    alt="Card image cap"> -->
                 <div class="card-body" id="search-result-section">
                     <h2 class="card-title" id="city-name"></h2>
                 </div>
             </div>
-
             <div class="flex-row">
                 <div class="col-12">
                     <h3>5-Day Forecast:</h3>
                 </div>
                 <div class="col-12">
-                    <div class="row" id="forecast">
-                        <div class="col-12 col-md-2 bg-dark ml-2">
-                            <p>blah</p>
-                        </div>
-                        <div class="col-12 col-md-2 bg-danger ml-2">
-                            <p>blah</p>
-                        </div>
-                    </div>
-
-                    <!-- <div class="bg-dark col-2" id="day-1">
-                        <h4 class="text-white">Date 1</h4>
-                        <i class="bi bi-sun"></i>
-                    </div>
-                    <div class="bg-dark col-2" id="day-2">
-                        <h4 class="text-white">Date 1</h4>
-                        <i class="bi bi-sun"></i>
-                    </div>
-                    <div class="bg-dark col-2" id="day-3">
-                        <h4 class="text-white">Date 1</h4>
-                        <i class="bi bi-sun"></i>
-                    </div>
-                    <div class="bg-dark col-2" id="day-4">
-                        <h4 class="text-white">Date 1</h4>
-                        <i class="bi bi-sun"></i>
-                    </div>
-                    <div class="bg-dark col-2" id="day-5">
-                        <h4 class="text-white">Date 1</h4>
-                        <i class="bi bi-sun"></i>
-                    </div> -->
+                    <div id="forecast"></div>
                 </div>
             </div>
         </div>

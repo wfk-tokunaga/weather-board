@@ -1,0 +1,17 @@
+#city-search, #search-btn {
+    width: 100%;
+}
+
+#forecast {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-between;
+}
+
+.day-card {
+    background-color: gray;
+}
+
+.search-history-btn {
+    width: 100%;
+}
